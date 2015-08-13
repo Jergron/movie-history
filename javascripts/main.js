@@ -20,13 +20,15 @@ requirejs.config({
 // The main function requiring all our anciliary scripts
 requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates"], 
   function($, _, _firebase, Handlebars, bootstrap, movies, template){
-  var myFirebaseRef = new Firebase("https://movie-history531.firebaseio.com/");
+  var myFirebaseRef = new Firebase("https://refactormovie.firebaseio.com/");
   var retrievedMoviesObj = {};
   var movie = {};
   var newMovie = {};
-  myFirebaseRef.child("Movie").on("value", function(snapshot) {
-    retrievedMoviesObj = snapshot.val();
-    actorArrayMoviesObj = snapshot.val();
+  myFirebaseRef.child("movies").on("value", function(snapshot) {
+    console.log($.extend({}, _.sortBy(snapshot.val(), "title")));
+    console.log(snapshot.val());
+    retrievedMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
+    actorArrayMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
     for(var key in actorArrayMoviesObj) {
       actorArrayMoviesObj[key].actors = actorArrayMoviesObj[key].actors.split(", ");
     }
@@ -64,7 +66,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     console.log("newMovie", newMovie);
 
     $.ajax ({
-      url: "https://movie-history531.firebaseio.com/Movie.json",
+      url: "https://refactormovie.firebaseio.com/movies.json",
        method: "POST", 
        data: JSON.stringify(newMovie)
      }).done(function(NewType) {
@@ -87,7 +89,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
   $(document).on("click", ".del", function() {
     var movieKey = $(this).parents(".movie-sec").attr("key");
-    myFirebaseRef.child("Movie").child(movieKey).set(null);
+    myFirebaseRef.child("movies").child(movieKey).set(null);
   });
 
   // Remove Movie Button (Not Firebase)
@@ -103,13 +105,15 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     var movieKey = $(this).parents(".movie-sec").attr("key");
     var movieWithNewRating = retrievedMoviesObj[movieKey];
     movieWithNewRating.rating = $(this).val();
-    myFirebaseRef.child("Movie").child(movieKey).set(movieWithNewRating);
+    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewRating);
   });
-    
+
+//Search through firebase database
+
   $('#search').click(function() {
     
     
-    var searchMovie = $('#searchText').val();
+    var searchMovie = $('#searchText').val().toLowerCase();
     $('#searchText').val("");
 
     console.log("search Movie", searchMovie);
@@ -117,7 +121,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
     var filteredMovies = {};
     filteredMovies = _.findKey(actorArrayMoviesObj, function(movie) {
-      if (movie.title === searchMovie || movie.year === searchMovie) {
+      if ((movie.title.toLowerCase().split(" ").indexOf(searchMovie) !== -1 || movie.title.toLowerCase() === searchMovie) || movie.year === searchMovie) {
         return true;
       } else {
         return false;
@@ -134,6 +138,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
   });
 
 // Toggleclass button for watched/unwatched movies
+
   $(document).on("click", ".watchToggle", function(e) {
     e.preventDefault();
     var movieKey = $(this).parents(".movie-sec").attr("key");
@@ -147,7 +152,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     } else {
       movieWithNewWatched.watched = true;
     }
-    myFirebaseRef.child("Movie").child(movieKey).set(movieWithNewWatched);
+    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewWatched);
   }); 
     
      
