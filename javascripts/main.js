@@ -20,11 +20,11 @@ requirejs.config({
 // The main function requiring all our anciliary scripts
 requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates"], 
   function($, _, _firebase, Handlebars, bootstrap, movies, template){
-  var myFirebaseRef = new Firebase("https://movie-history531.firebaseio.com/");
+  var myFirebaseRef = new Firebase("https://refactormovie.firebaseio.com/");
   var retrievedMoviesObj = {};
   var movie = {};
   var newMovie = {};
-  myFirebaseRef.child("Movie").on("value", function(snapshot) {
+  myFirebaseRef.child("movies").on("value", function(snapshot) {
     retrievedMoviesObj = snapshot.val();
     actorArrayMoviesObj = snapshot.val();
     for(var key in actorArrayMoviesObj) {
@@ -49,7 +49,35 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
         $thisMovieWatchButton.addClass("btn-danger");
       }
     }
+///styling effects for movie containers ////
+$('.ratingRow').on('click',function(){
+  $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
   });
+  
+              //// shadow on movie-content ////
+          $('.movie-content').on('mouseover', function(){
+              $(this).addClass('shadow');
+            });
+          $('.movie-content').on('mouseout', function(){
+            $(this).removeClass('shadow');
+          });
+
+
+            //// remove hidden to show delete /// 
+           $('.movie-sec').on('mouseover', function(){
+              $('.del').removeClass('hidden');
+              $('.del').addClass('btnPosition');
+
+            });
+          $('.movie-sec').on('mouseout', function(){
+            $('.del').addClass('hidden');
+            $('.del').removeClass('btnPosition');
+          });
+
+  });
+
+
+
   var show = function(showMovie) {
     movie = showMovie;
     console.log("movies", showMovie);
@@ -64,7 +92,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     console.log("newMovie", newMovie);
 
     $.ajax ({
-      url: "https://movie-history531.firebaseio.com/Movie.json",
+      url: "https://refactormovie.firebaseio.com/movies.json",
        method: "POST", 
        data: JSON.stringify(newMovie)
      }).done(function(NewType) {
@@ -87,7 +115,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
   $(document).on("click", ".del", function() {
     var movieKey = $(this).parents(".movie-sec").attr("key");
-    myFirebaseRef.child("Movie").child(movieKey).set(null);
+    myFirebaseRef.child("movies").child(movieKey).set(null);
   });
 
   // Remove Movie Button (Not Firebase)
@@ -103,7 +131,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     var movieKey = $(this).parents(".movie-sec").attr("key");
     var movieWithNewRating = retrievedMoviesObj[movieKey];
     movieWithNewRating.rating = $(this).val();
-    myFirebaseRef.child("Movie").child(movieKey).set(movieWithNewRating);
+    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewRating);
   });
     
   $('#search').click(function() {
@@ -147,7 +175,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     } else {
       movieWithNewWatched.watched = true;
     }
-    myFirebaseRef.child("Movie").child(movieKey).set(movieWithNewWatched);
+    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewWatched);
   }); 
     
      

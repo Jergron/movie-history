@@ -1,52 +1,329 @@
-nav {
-  border: 2px dotted goldenrod;
-  color: white;
-}
-
-a {
-  font-size: 2em;
-  background-color: black;
-  color: white;
-}
-
-.main {
-  border: 2px dotted goldenrod;
-  background-color: rbga(0,0,0,0);
-}
-
-.side {
-  border: 2px dotted goldenrod;
-  background-color: rbga(0,0,0,0);
-}
-
-.row-eq-height {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  max-width: 400px;
-}
+$font-stack:  'Lato', sans-serif;;
+$primary-color: #333;
+$background-color: #eee;
+$border-color: #DCDCDC;
 
 body {
-  font: 100% Helvetica, sans-serif;
-  background: rgb(93,8,6) url("../images/background.jpg") no-repeat center center fixed;
-  background-size: cover;
+  font: 100% $font-stack;
+  color: $primary-color;
+
 }
 
-div {
-  color: white;
-  font-size: 1.15em !important;
+///// nav bar //////////////////////////
+.navbar{
+  font-size: 16px;
 }
 
-.form-control {
-  margin: 10px 0 !important;
+
+////modal ////
+.modal-header{
+background-color: #ddd;
+}
+.modal-body{
+background-color: #eee;
+}
+.modal-footer{
+background-color: #ddd;
+}
+.form-control{
+background-color: #fff;
 }
 
-.input-group {
-  margin-top: 40px !important;
+
+///// movie container /////
+
+h2 {
+  padding-left: 12px; 
+  margin-top: auto;
+  margin-bottom: 20px; 
+  font-weight: 300;
 }
+.h2-weight{
+  font-size: 31px;
+  //font-weight: 700;
+
+}
+
+/// new movie history
+
+// location: index.html
+
+.container-margin{
+  margin-top: 50px;
+}
+.main-container  {
+  //border: 1px solid black;
+  height: 500px;
+  //background-color: #ddd;
+}
+
+#rowEq {
+  //border: 1px dotted red;
+  height: 370px;
+ 
+}
+#range{
+  height:100%;
+ // border: 2px dotted green;
+
+}
+
+
+
+/// location: movie.hbs ////
+.movie-sec{
+  //border: 1px solid black;
+  height: 370px;
+  margin-bottom: 25px;
+}
+.movie-content{
+  height: 100%;
+  width: 250px;
+  border: 1px solid $border-color;
+  background-color: $background-color;
+}
+.posterRow {
+  //border: 2px dotted pink;
+  height: 255px;
+}
+.titleRow {
+  height: 65px;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+.titleContent{
+  height: 100%;
+}
+.ratingRow {
+  //border: 4px dotted orange;
+  height: 40px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.ratingRow .btn-link {
+  color: #000 !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  outline: none;
+  padding: 0;
+}
+.starRating{
+  padding-right:5px;
+  padding-left: 5px;
+}
+.watchButton{
+  padding-left: 5px;
+}
+.btnPosition{
+  position: absolute;
+  z-index: 1;
+}
+.glyphicon-trash{
+  color: crimson;
+}
+
+
+.shadow{
+ -webkit-box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+-moz-box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+}
+
+
+
+
+
+// our code //
+
+
+// #movie-containers{
+//   //border: 3px dotted green;
+//   height: 370px;
+//   margin-bottom: 20px;
+// }
+
+// .movie-margin{
+//   margin-bottom: 25px;
+// }
+// .movie-info{
+//   border: 1px solid #DCDCDC;
+//   height:100%;
+//   //border: 1px dotted blue;
+//   background-color: #eee;
+// }
+// // .rowHeightDiv{
+// //   height: 200px;
+// // }
+// img{
+//   margin-top: 12px;
+// }
+// .posterRow {
+//   height: 200px;
+//   background-color: #ddd;
+
+//   //border: 1px dotted red;
+// }
+// .poster {
+//   height: 100%;
+//   width: 100%;
+//   text-align: center;
+// }
+
+// .titleRow{
+//   height: 85px;
+//   border-bottom: 1px solid #DCDCDC;
+// }
+// .movieTitle{
+//   margin-top: 0;
+//   height: 100%;
+//   font-size: 14px;
+// }
+// .genre{
+//   margin-top: 20px;
+// }
+// .actorRow{
+//   height: 40px;
+//   border-bottom: 1px solid #DCDCDC;
+// }
+// .actors{
+//   height: 100%;
+// }
+// .actors p {
+//   margin-top: 5px;
+//   font-size: 11px;
+//   font-weight: 400;
+// }
+// .rating {
+//   height:100%;
+//   margin-top: 9px;
+// }
+// .rating p{
+//   font-size: 12px;
+// }
+// .ratingButtonDiv{
+//   height:25px;
+//   padding-top: 3px;
+// }
+
+// .delButton {
+//   color: #000 !important;
+//   text-decoration: none;
+//   background-color: #eee;
+//   text-align: right;
+//   padding-right: 5px;
+//   height: 100%;
+// }
+// .btn-hover {
+//   color: #000;
+//   font-weight: bold;
+//   text-decoration: none;
+// }
+// .button-padding{
+//   height: 100%;
+// }
+// .glyphicon-trash{
+//   color: crimson;
+// }
+
+// .shadow{
+//  -webkit-box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+// -moz-box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+// box-shadow: 4px 6px 5px 0px rgba(220,220,220,0.77);
+// }
+
+// .shadow-click{
+//   -webkit-box-shadow: 6px 9px 10px 0px rgba(113,225,240,0.25);
+// -moz-box-shadow: 6px 9px 10px 0px rgba(113,225,240,0.25);
+// box-shadow: 6px 9px 10px 0px rgba(113,225,240,0.25);
+// }
+
+// .movie-info{
+//   border: 1px solid #DCDCDC;
+//   height:100%;
+//   //border: 1px dotted blue;
+//   background-color: #eee;
+// }
+// .rowHeightDiv{
+//   height: 200px;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// nav {
+//   border: 2px dotted goldenrod;
+//   color: white;
+// }
+
+// a {
+//   font-size: 2em;
+//   background-color: black;
+//   color: white;
+// }
+
+// .main {
+//   border: 2px dotted goldenrod;
+//   background-color: rbga(0,0,0,0);
+// }
+
+// .side {
+//   border: 2px dotted goldenrod;
+//   background-color: rbga(0,0,0,0);
+// }
+
+// .row-eq-height {
+//   display: -webkit-box;
+//   display: -webkit-flex;
+//   display: -ms-flexbox;
+//   display: flex;
+// }
+
+// img {
+//   width: 100%;
+//   height: 100%;
+//   max-width: 400px;
+// }
+
+// body {
+//   font: 100% Helvetica, sans-serif;
+//   background: rgb(93,8,6) url("../images/background.jpg") no-repeat center center fixed;
+//   background-size: cover;
+// }
+
+// div {
+//   color: white;
+//   font-size: 1.15em !important;
+// }
+
+// .form-control {
+//   margin: 10px 0 !important;
+// }
+
+// .input-group {
+//   margin-top: 40px !important;
+// }
