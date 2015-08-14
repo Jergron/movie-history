@@ -51,7 +51,35 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
         $thisMovieWatchButton.addClass("btn-danger");
       }
     }
+///styling effects for movie containers ////
+$('.ratingRow').on('click',function(){
+  $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
   });
+  
+              //// shadow on movie-content ////
+          $('.movie-content').on('mouseover', function(){
+              $(this).addClass('shadow');
+            });
+          $('.movie-content').on('mouseout', function(){
+            $(this).removeClass('shadow');
+          });
+
+
+            //// remove hidden to show delete /// 
+           $('.movie-sec').on('mouseover', function(){
+              $('.del').removeClass('hidden');
+              $('.del').addClass('btnPosition');
+
+            });
+          $('.movie-sec').on('mouseout', function(){
+            $('.del').addClass('hidden');
+            $('.del').removeClass('btnPosition');
+          });
+
+  });
+
+
+
   var show = function(showMovie) {
     movie = showMovie;
     console.log("movies", showMovie);
@@ -113,8 +141,8 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
   $('#search').click(function() {
     
     
-    var searchMovie = $('#searchText').val().toLowerCase();
-    $('#searchText').val("");
+    var searchMovie = $('.search').val().toLowerCase();
+    $('.search').val("");
 
     console.log("search Movie", searchMovie);
     console.log("firebase obj",retrievedMoviesObj);
