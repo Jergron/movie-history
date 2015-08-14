@@ -2,19 +2,20 @@
 <section class="movie-sec col-md-3 col-sm-3 col-xs-3" key="{{@key}}" >
   <div class="movie-content col-md-12 col-sm-12 col-xs-12 ">
       <div class="row posterRow">
-         <button class="del btn btn-danger hidden pull-right">
-         Delete
-        </button>
           <div class="posterImg col-md-12 col-sm-12 col-xs-12">
             {{#if poster}}
-            <img src={{poster}}  alt="{{title}} Poster">
+            <img src="../images/no-image-found.jpg"  alt="{{title}} Poster" width="248" height="320">
             {{else}}
             <img src="../images/no-image-found.jpg" alt="{{title}} Poster">
             {{/if}}
           </div> <!-- end posterImg -->
+          <div class="delButtonDiv ">
+         <button class="del btn btn-defalut pull-right glyphicon glyphicon-trash">
+        </button>
+      </div>
       </div> <!-- end posterRow -->
 
-        <div class="row titleRow">
+        <div class="row titleRow hidden">
           <div class=" titleContent col-md-12 col-sm-12 col-xs-12">
             <h4>{{title}} ({{year}})</h4>
           </div>
