@@ -15,6 +15,26 @@ body {
   background-color: #eee;
   height: 300px; }
 
+.modal-body2 {
+  background-color: #ddd;
+  height: 150px;
+  width: 100%;
+  border-top: 1px solid #DCDCDC;
+  border-bottom: 1px solid #DCDCDC; }
+
+.poster {
+  border: 1px solid #DCDCDC; }
+
+.posterContent {
+  height: 150px;
+  border: 1px solid #DCDCDC; }
+
+.title {
+  border: 1px solid #DCDCDC; }
+
+.actor {
+  border: 1px solid #DCDCDC; }
+
 .modal-footer {
   background-color: #ddd; }
 

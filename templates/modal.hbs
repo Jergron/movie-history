@@ -1,20 +1,30 @@
   <!-- Add movie modal -->
-
- {{#each newMovie}}
+<div>
+ {{#each newMovieArray}}
 
               <div class="modal-body2">
                   <div class="row">
-                    <div class="poster">
-                      {{poster}}
-                    </div>
-                    <div class="title">
-                      {{title}} ({{year}})
-                    </div>
-                    <div class="actors">
-                      {{actors}}
-                    </div>
-                  </div>
+                      
+                      <div class="poster col-md-3 col-sm-3 col-xs-3">
+                        <div class=" posterContent col-md-12 col-sm-12 col-xs-12">
+                          {{#if poster}}
+                          <img src="../images/no-image-found.jpg"  alt="{{title}} Poster" width="85.5" height="148">
+                          {{else}}
+                          <img src="../images/no-image-found.jpg" alt="{{title}} Poster"width="85.5" height="148">
+                          {{/if}}
+                        </div>
+                      </div>
+                      <div class="title col-md-3 col-sm-3 col-xs-3">
+                        <h4>{{Title}} ({{Year}})</h4>
+                      </div>
+                      <div class="actors col-md-3 col-sm-3 col-xs-3">
+                      <h6>{{Actors}}</h6>
+                      </div>
+                  <div class="addButton col-md-3 col-sm-3 col-xs-3">
+                     <button class="btn btn-primary addButton">Add</button>
+                  </div><!-- row -->
                  
-              </div>
+              </div> <!-- modal-body2 -->
             
           {{/each}}
+        </div>

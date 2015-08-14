@@ -76,7 +76,7 @@ $('.ratingRow').on('click',function(){
 
           $('.watchbtn').on('click', function(){
             ('.movie-sec').removeClass();
-          })
+          });
 
   });
 
@@ -85,34 +85,42 @@ $('.ratingRow').on('click',function(){
   var show = function(showMovie) {
     movie = showMovie;
     console.log("movies", showMovie);
-          
-    newMovie.title = movie.Title;
-    newMovie.year = movie.Year;
-    newMovie.actors = movie.Actors;
-    newMovie.plot = movie.Plot;
-    newMovie.poster = movie.Poster;
-    newMovie.rating = 5;
-    newMovie.watched = false;
-    console.log("newMovie", newMovie);
+    var newMovieArray = [movie];
+    
+    // newMovie.title = movie.Title;
+    // newMovie.year = movie.Year;
+    // newMovie.actors = movie.Actors;
+    // newMovie.plot = movie.Plot;
+    // newMovie.poster = movie.Poster;
+    // newMovie.rating = 5;
+    // newMovie.watched = false;  }]
 
+    // console.log("newMovie", newMovie);
+    // console.log(show);
 
     require(['hbs!../templates/modal'],
-      function(modalTemplate) {
-       var modalBody = $("#modal-body").append(modalTemplate(newMovie));
-       console.log(modalTemplate);
-       console.log(modalTemplate(newMovie));
-       console.log(modalBody);
+      function(modal) {
+        console.log(newMovieArray);
+       var modalBody = $("#modal-body").html(modal({newMovieArray}));
+
       });
+//var modal ={};
+  // var modalBody = $("#modal-body").html(template.modal({newMovie}));
+  // console.log(modalBody);
+
+// $('.addButton').on('click',function(){
+
+//     $.ajax ({
+//       url: "https://refactormovie.firebaseio.com/movies.json",
+//        method: "POST", 
+//        data: JSON.stringify(movie)
+//      }).done(function() {
+//        console.log("New Movie");
+//      });
+//   });
 
 
-    // $.ajax ({
-    //   url: "https://refactormovie.firebaseio.com/movies.json",
-    //    method: "POST", 
-    //    data: JSON.stringify(newMovie)
-    //  }).done(function(NewType) {
-    //    console.log("New Movie");
-    //  });
-  
+
   };
 
 //Add Movie Button    

@@ -26,6 +26,40 @@ background-color: #ddd;
 background-color: #eee;
 height: 300px;
 }
+
+/// modal.hbs ///
+.modal-body2{
+  background-color: #ddd;
+  height: 150px;
+  width: 100%;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.poster{
+  border: 1px solid $border-color;
+}
+
+.posterContent{
+  height: 150px;
+  border: 1px solid $border-color;
+}
+.title{
+  border: 1px solid $border-color;
+}
+.actor{
+  border: 1px solid $border-color;
+}
+
+
+
+
+
+
+
+
+
+
 .modal-footer{
 background-color: #ddd;
 }
