@@ -6,7 +6,7 @@ body {
 
 .navbar {
   font-size: 16px;
-  background-color: rgba(49, 49, 49, 0.9); }
+  background-color: #313131; }
 
 .modal-header {
   background-color: #ddd; }
@@ -97,12 +97,10 @@ h2 {
   float: right;
   width: 100%; }
 
-.del button {
-  background-color: rgba(103, 103, 103, 0.2) !important; }
-
 .glyphicon-trash {
   color: crimson;
-  font-size: 16px; }
+  font-size: 16px;
+  background-color: transparent; }
 
 .shadow {
   -webkit-box-shadow: 3px 4px 10px 2px #70706e;
