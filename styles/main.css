@@ -12,7 +12,8 @@ body {
   background-color: #ddd; }
 
 .modal-body {
-  background-color: #eee; }
+  background-color: #eee;
+  height: 300px; }
 
 .modal-footer {
   background-color: #ddd; }

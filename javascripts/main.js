@@ -39,15 +39,15 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
       console.log("isWatched", isWatched);
       var $thisMovieWatchButton = $(allMovies[i]).find(".watchToggle");
       console.log("$thisMovieWatchButton", $thisMovieWatchButton);
-      if(isWatched) {
-        $thisMovieWatchButton.html("Watched");
-        $thisMovieWatchButton.removeClass("btn-danger");
-        $thisMovieWatchButton.addClass("btn-success");
-      } else {
-        $thisMovieWatchButton.html("Unwatched");
-        $thisMovieWatchButton.removeClass("btn-success");
-        $thisMovieWatchButton.addClass("btn-danger");
-      }
+      // if(isWatched) {
+      //   $thisMovieWatchButton.html("Watched");
+      //   $thisMovieWatchButton.removeClass("btn-danger");
+      //   $thisMovieWatchButton.addClass("btn-success");
+      // } else {
+      //   $thisMovieWatchButton.html("Unwatched");
+      //   $thisMovieWatchButton.removeClass("btn-success");
+      //   $thisMovieWatchButton.addClass("btn-danger");
+      // }
     }
 ///styling effects for movie containers ////
 $('.ratingRow').on('click',function(){
@@ -74,6 +74,10 @@ $('.ratingRow').on('click',function(){
             $('.del').removeClass('btnPosition');
           });
 
+          $('.watchbtn').on('click', function(){
+            ('.movie-sec').removeClass();
+          })
+
   });
 
 
@@ -91,13 +95,23 @@ $('.ratingRow').on('click',function(){
     newMovie.watched = false;
     console.log("newMovie", newMovie);
 
-    $.ajax ({
-      url: "https://refactormovie.firebaseio.com/movies.json",
-       method: "POST", 
-       data: JSON.stringify(newMovie)
-     }).done(function(NewType) {
-       console.log("New Movie");
-     });
+
+    require(['hbs!../templates/modal'],
+      function(modalTemplate) {
+       var modalBody = $("#modal-body").append(modalTemplate(newMovie));
+       console.log(modalTemplate);
+       console.log(modalTemplate(newMovie));
+       console.log(modalBody);
+      });
+
+
+    // $.ajax ({
+    //   url: "https://refactormovie.firebaseio.com/movies.json",
+    //    method: "POST", 
+    //    data: JSON.stringify(newMovie)
+    //  }).done(function(NewType) {
+    //    console.log("New Movie");
+    //  });
   
   };
 
@@ -106,7 +120,7 @@ $('.ratingRow').on('click',function(){
   $('#addMoviebtn').click(function() {
     console.log("click");
     var addMovie = $("#addMovie").val();
-    console.log("addMovie", addMovie);
+   // console.log("addMovie", addMovie);
     $("#addMovie").val("");
     movies.getMovie(addMovie, show);
   });
