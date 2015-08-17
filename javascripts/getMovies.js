@@ -1,22 +1,25 @@
 define(["jquery"], function($) {
 
   return {
-    getMovie: function(title, callback) {
+    getMovie: function(title) {
       
     
       $.ajax({
-          url: "http://www.omdbapi.com/?t="+title+"&y=&plot=short&r=json",        
+          url: "http://www.omdbapi.com/?s="+title,     
         }).done(function(data) {
           
-          
-          console.log("data", data);
-          callback(data);
-          
+              require(['hbs!../templates/modal'],
+      function(modalTemplate) {
+       var modalBody = $("#modal-body").html(modalTemplate(data.Search));
+        console.log(modalBody);
       });
 
-    }
-
-  };
+       $('#addMoviebtn').on('click', function(){
+        console.log('click');
+         return modalBody; 
+        });
 
 });
-
+}
+};
+});

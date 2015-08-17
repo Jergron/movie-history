@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
-    <title>Nashville Software School</title>
+    <title>Movie-History</title>
   </head>
   <body>
 
@@ -38,33 +38,13 @@
                 <input id="addMovie" type="text" class="form-control" placeholder="Search">
               </div>
             <button type="submit" id="submit" class="btn btn-default">Submit</button>
-            <a href="#myModal" data-toggle="modal" data-target="#myModal"><button type="submit" id="addMoviebtn" class="btn btn-default">Find</button></a>
+          <button type="submit" id="addMoviebtn" class="btn btn-default">Find</button>
           </div>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
 
-    <!-- Add movie modal -->
 
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title">Add Favorite Movies</h4>
-            </div>
-
-              <div  id="modal-body" class="modal-body">
-                  <!-- modal.hbs -->
-              </div>
-            
-            <div class="modal-footer">
-              <a href="#" data-dismiss="modal" class="btn">Close</a>
-            </div> <!-- modal-footer div -->
-
-          </div> <!-- modal-content div -->
-        </div> <!-- modal-dialog div -->
-    </div> <!-- myModal div -->
 
 
 
@@ -73,13 +53,19 @@
     <div id="cont" class="container-fluid main-container">
       <div id="rowEq" class="row row-eq-height">
         <div id="range" class="col-md-12 col-sm-12 col-xs-12 main">
-          <div class="btn-group" role="group" aria-label="...">
-            <div class="btn-group" role="group">
-              <!-- <button type="button" class="btn btn-danger">Watched</button> -->
-            </div>
-          </div>
+          
         </div>
       </div>
+
+    </div>
+
+
+
+
+    <div class="add">
+       <div id="modal-body" role="group" aria-label="...">
+            
+          </div>
     </div>
     <script data-main="./javascripts/main" src="bower_components/requirejs/require.js"></script>
     

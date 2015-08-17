@@ -54,8 +54,12 @@ h2 {
   margin-top: 50px; }
 
 .main-container {
-  height: 500px;
+  height: 800px;
   margin-top: 50px; }
+
+.add {
+  height: 500px;
+  background-color: black; }
 
 #rowEq {
   height: 370px; }

@@ -39,20 +39,12 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
       console.log("isWatched", isWatched);
       var $thisMovieWatchButton = $(allMovies[i]).find(".watchToggle");
       console.log("$thisMovieWatchButton", $thisMovieWatchButton);
-      // if(isWatched) {
-      //   $thisMovieWatchButton.html("Watched");
-      //   $thisMovieWatchButton.removeClass("btn-danger");
-      //   $thisMovieWatchButton.addClass("btn-success");
-      // } else {
-      //   $thisMovieWatchButton.html("Unwatched");
-      //   $thisMovieWatchButton.removeClass("btn-success");
-      //   $thisMovieWatchButton.addClass("btn-danger");
-      // }
     }
-///styling effects for movie containers ////
-$('.ratingRow').on('click',function(){
-  $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
-  });
+
+          ///styling effects for movie containers ////
+          $('button').on('click',function(){
+            $(this).children('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
+            });
   
               //// shadow on movie-content ////
           $('.movie-content').on('mouseover', function(){
@@ -64,12 +56,12 @@ $('.ratingRow').on('click',function(){
 
 
             //// remove hidden to show delete /// 
-           $('.movie-sec').on('mouseover', function(){
-              $('.del').removeClass('hidden');
+           $('.movie-content').on('mouseover', function(){
+              $(this).find('.del').removeClass('hidden');
               $('.del').addClass('btnPosition');
 
             });
-          $('.movie-sec').on('mouseout', function(){
+          $('.movie-content').on('mouseout', function(){
             $('.del').addClass('hidden');
             $('.del').removeClass('btnPosition');
           });
@@ -82,46 +74,30 @@ $('.ratingRow').on('click',function(){
 
 
 
-  var show = function(showMovie) {
-    movie = showMovie;
-    console.log("movies", showMovie);
-    var newMovieArray = [movie];
-    
-    // newMovie.title = movie.Title;
-    // newMovie.year = movie.Year;
-    // newMovie.actors = movie.Actors;
-    // newMovie.plot = movie.Plot;
-    // newMovie.poster = movie.Poster;
-    // newMovie.rating = 5;
-    // newMovie.watched = false;  }]
+//   var show = function(showMovie) {
+//     movie = showMovie;
+//     console.log("movies", showMovie);
 
-    // console.log("newMovie", newMovie);
-    // console.log(show);
+//     var newMovieArray = [movie];
+        
 
-    require(['hbs!../templates/modal'],
-      function(modal) {
-        console.log(newMovieArray);
-       var modalBody = $("#modal-body").html(modal({newMovieArray}));
+     
+//     require(['hbs!../templates/modal'],
+//       function(modal) {
+//         console.log("newMovieArray",newMovieArray);
+//         console.log("newMovieArray",newMovieArray.Search);
+//        var modalBody = $("#modal-body").html(modal({newMovieArray:newMovieArray}));
+// console.log(modalBody);
+//       });
 
-      });
-//var modal ={};
-  // var modalBody = $("#modal-body").html(template.modal({newMovie}));
-  // console.log(modalBody);
+//        $('#addMoviebtn').on('click', function(){
+//         console.log('click');
+//          return modalBody; 
+//         });
 
-// $('.addButton').on('click',function(){
-
-//     $.ajax ({
-//       url: "https://refactormovie.firebaseio.com/movies.json",
-//        method: "POST", 
-//        data: JSON.stringify(movie)
-//      }).done(function() {
-//        console.log("New Movie");
-//      });
-//   });
+//   };
 
 
-
-  };
 
 //Add Movie Button    
 
