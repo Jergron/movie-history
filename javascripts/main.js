@@ -43,7 +43,6 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
    
       for (var key in _baseFirebaseObject) {
         var movieWithId = _baseFirebaseObject[key];
-        var movieKeys =  movieWithId.key;
         movieWithId.key = key;
         retrievedMoviesObj[retrievedMoviesObj.length] = movieWithId;
         console.log("_baseFirebaseObject[key]", _baseFirebaseObject[key]);
@@ -54,7 +53,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
      
         // Delete Movie Button (From Firebase)
-      $(document).on("click", ".del", _baseFirebaseObject, function() {
+      $(document).on("click", ".del", function() {
         var movieKey = $(this).parents(".movie-sec").attr("key");
             myFirebaseRef.child("movies").child(movieKey).set(null);
               console.log("movieKey", movieKey);
@@ -205,7 +204,7 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
     e.preventDefault();
     var movieKey = $(this).parents(".movie-sec").attr("key");
     console.log("movieKey",movieKey);
-    var movieWithNewWatched = retrievedMoviesObj[movieKey];
+    var movieWithNewWatched = _baseFirebaseObject[movieKey];
 
     console.log("movieWithNewWatched",movieWithNewWatched);
 

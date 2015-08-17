@@ -1,51 +1,51 @@
 {{#each Movie}}
 <section class="movie-sec col-md-3 col-sm-3 col-xs-3" key="{{key}}">
   <div class="movie-content col-md-12 col-sm-12 col-xs-12 ">
-      <div class="row posterRow">
-          <div class="posterImg col-md-12 col-sm-12 col-xs-12">
-            {{#if poster}}
-            <img src={{poster}}  alt="{{title}} Poster" width="248" height="320">
-            {{else}}  
-            <h3>{{title}}</h3>
-            {{/if}}
-          </div> <!-- end posterImg -->
-          <div class="delButtonDiv ">
-         <button id= "delButtonDiv2"class="del btn pull-right glyphicon glyphicon-trash">
+    <div class="row posterRow">
+      <div class="posterImg col-md-12 col-sm-12 col-xs-12">
+        {{#if poster}}
+        <img src={{poster}}  alt="{{title}} Poster" width="248" height="320">
+        {{else}}  
+        <h3>{{title}}</h3>
+        {{/if}}
+      </div> <!-- end posterImg -->
+      <div class="delButtonDiv ">
+        <button id= "delButtonDiv2"class="del btn pull-right glyphicon glyphicon-trash">
         </button>
       </div>
-      </div> <!-- end posterRow -->
+    </div> <!-- end posterRow -->
 
-        <div class="row titleRow hidden">
-          <div class=" titleContent col-md-12 col-sm-12 col-xs-12">
-            <h4>{{title}} ({{year}})</h4>
-          </div>
+      <div class="row titleRow hidden">
+        <div class=" titleContent col-md-12 col-sm-12 col-xs-12">
+          <h4>{{title}} ({{year}})</h4>
         </div>
+      </div>
 
-          <div class="row ratingRow">
-            <div class="starRating col-md-6 col-sm-6 col-xs-6">
-            <button class="aria-play-button btn-link"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
-            <button class="aria-play-button btn-link"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
-            <button class="aria-play-button btn-link"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
-            <button class="aria-play-button btn-link"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
-            <button class="aria-play-button btn-link"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
+    <div class="row ratingRow">
+      <div class="starRating col-md-6 col-sm-6 col-xs-6">
+        <button class="aria-play-button btn-link">
+          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        </button>
+        <button class="aria-play-button btn-link">
+          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        </button>
+        <button class="aria-play-button btn-link">
+          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        </button>
+        <button class="aria-play-button btn-link">
+          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        </button>
+        <button class="aria-play-button btn-link">
+          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+        </button>
             {{!-- <input class="form-control rating" value="{{rating}}">
             <p>Rating: {{rating}}</p> --}}
-            </div>
+      </div>
 
-            <div class="watchButton col-md-4 col-sm-4 col-xs-4 pull-right">
-              <button class="btn btn-sm btn-success watchToggle">Watched</button>
-            </div>
-          </div>
-
-    {{!-- <div class="col-sm-9">
-      <p>{{plot}}</p>
-      <h4>Leading Actors</h4>
-      <ul>
-        {{#each actors}}
-        <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    </div> --}}
+        <div class="watchButton col-md-4 col-sm-4 col-xs-4 pull-right">
+          <button class="btn btn-sm btn-success watchToggle">Watched</button>
+        </div>
+    </div>
          
   </div> <!-- movie content div-->
 </section>  
