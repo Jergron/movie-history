@@ -89,8 +89,8 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
 
   ///styling effects for movie containers ////
-  $('.ratingRow').on('click',function(){
-    $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
+  $('button').on('click',function(){
+    $(this).children('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
     });
     
                 //// shadow on movie-content ////
@@ -103,12 +103,12 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
   
   
               //// remove hidden to show delete /// 
-             $('.movie-sec').on('mouseover', function(){
-                $('.del').removeClass('hidden');
+             $('.movie-content').on('mouseover', function(){
+                $(this).find('.del').removeClass('hidden');
                 $('.del').addClass('btnPosition');
   
               });
-            $('.movie-sec').on('mouseout', function(){
+            $('.movie-content').on('mouseout', function(){
               $('.del').addClass('hidden');
               $('.del').removeClass('btnPosition');
             });

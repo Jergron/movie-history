@@ -17,7 +17,6 @@ body {
   background-color: rgb(49, 49, 49);
 }
 
-
 ////modal ////
 .modal-header{
 background-color: #ddd;
@@ -147,6 +146,11 @@ h2 {
 //   -webkit-box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
 // -moz-box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
 // box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
+}
+
+.glyphicon-trash:hover{
+ color:crimson;
+ font-size: 24px;
 }
 
 
