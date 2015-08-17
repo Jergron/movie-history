@@ -23,7 +23,42 @@ background-color: #ddd;
 }
 .modal-body{
 background-color: #eee;
+height: 300px;
 }
+
+/// modal.hbs ///
+.modal-body2{
+  background-color: #ddd;
+  height: 150px;
+  width: 100%;
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+.poster{
+  border: 1px solid $border-color;
+}
+
+.posterContent{
+  height: 150px;
+  border: 1px solid $border-color;
+}
+.title{
+  border: 1px solid $border-color;
+}
+.actor{
+  border: 1px solid $border-color;
+}
+
+
+
+
+
+
+
+
+
+
 .modal-footer{
 background-color: #ddd;
 }
@@ -55,9 +90,13 @@ h2 {
 }
 .main-container  {
   //border: 1px solid black;
-  height: 500px;
+  height: 800px;
   margin-top: 50px;
   //background-color: #ddd;
+}
+.add{
+  height:500px;
+  background-color: black;
 }
 
 #rowEq {
@@ -102,6 +141,7 @@ h2 {
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
   position: absolute;
+  
 }
 .titleContent{
   height: 100%;
@@ -146,6 +186,10 @@ h2 {
 //   -webkit-box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
 // -moz-box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
 // box-shadow: 3px 4px 24px -2px rgba(0,0,0,0.75);
+}
+.glyphicon-trash:hover{
+  color:crimson;
+  font-size: 24px;
 }
 
 .glyphicon-trash:hover{
@@ -347,15 +391,4 @@ img {
 //   background-size: cover;
 // }
 
-// div {
-//   color: white;
-//   font-size: 1.15em !important;
-// }
 
-// .form-control {
-//   margin: 10px 0 !important;
-// }
-
-// .input-group {
-//   margin-top: 40px !important;
-// }

@@ -18,8 +18,8 @@ requirejs.config({
 
 
 // The main function requiring all our anciliary scripts
-requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates"], 
-  function($, _, _firebase, Handlebars, bootstrap, movies, template){
+requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates", "addToFirebase"], 
+  function($, _, _firebase, Handlebars, bootstrap, movies, template, addToFirebase){
   var myFirebaseRef = new Firebase("https://refactormovie.firebaseio.com/");
   var retrievedMoviesObj = {};
   var movie = {};
@@ -28,37 +28,79 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 
 
   myFirebaseRef.child("movies").on("value", function(snapshot) {
-    // console.log($.extend({}, _.sortBy(snapshot.val(), "title")));
-    // console.log(snapshot.val());
+    console.log($.extend({}, _.sortBy(snapshot.val(), "title")));
+    console.log(snapshot.val());
 
     _baseFirebaseObject = snapshot.val();
 
     retrievedMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
     
-
     actorArrayMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
+    
     console.log("actorArrayMoviesObj", actorArrayMoviesObj);
 
     // Convert Firebase's object of objects into an array of objects
    
-      for (var key in _baseFirebaseObject) {
-        var movieWithId = _baseFirebaseObject[key];
-        movieWithId.key = key;
-        retrievedMoviesObj[retrievedMoviesObj.length] = movieWithId;
-        console.log("_baseFirebaseObject[key]", _baseFirebaseObject[key]);
-        //  console.log("movieWithId.key", movieWithId.key);
-      
-      }
+    for (var key in _baseFirebaseObject) {
+      var movieWithId = _baseFirebaseObject[key];
+      movieWithId.key = key;
+      retrievedMoviesObj[retrievedMoviesObj.length] = movieWithId;
+      console.log("_baseFirebaseObject[key]", _baseFirebaseObject[key]);
+      //  console.log("movieWithId.key", movieWithId.key);
+    
+    }
 
 
      
-        // Delete Movie Button (From Firebase)
-      $(document).on("click", ".del", function() {
-        var movieKey = $(this).parents(".movie-sec").attr("key");
-            myFirebaseRef.child("movies").child(movieKey).set(null);
-              console.log("movieKey", movieKey);
-      
-      });
+      // Delete Movie Button (From Firebase)
+    $(document).on("click", ".del", function() {
+      var movieKey = $(this).parents(".movie-sec").attr("key");
+          myFirebaseRef.child("movies").child(movieKey).set(null);
+            console.log("movieKey", movieKey);
+    
+    });
+  
+  $("#watched-link").click(function() {
+  
+   var watchedArray = [];
+   var watchedObject = {};
+  
+   myFirebaseRef.on("child_added", function(snapshot) {
+     if (_baseFirebaseObject.watched === true) {
+       console.log(snapshot.val());
+       watchedArray.push(snapshot.val());
+     }
+       watchedObject = {movies: watchedArray};
+   });
+       console.log(watchedArray);
+       console.log(watchedObject);
+       
+       require(['hbs!../templates/movie'],
+         function(watchedTemplate) {
+         $(".main").html(watchedTemplate(watchedObject));
+       });
+  });
+  
+  $("#wishlist-link").click(function() {
+  
+   var wishArray = [];
+   var wishObject = {};
+  
+   myFirebaseRef.on("child_added", function(snapshot) {
+     if (_baseFirebaseObject.watched === false) {
+       console.log(snapshot.val());
+       wishArray.push(snapshot.val());
+     }
+       wishObject = {movies: wishArray};
+   });
+       console.log(wishArray);
+       console.log(wishObject);
+  
+       require(['hbs!../templates/movie'],
+         function(wishTemplate) {
+         $(".main").html(wishTemplate(wishObject));
+       });
+  });
 
     // for(var key in actorArrayMoviesObj) {
     //   actorArrayMoviesObj[key].actors = actorArrayMoviesObj[key].actors.split(", ");
@@ -172,31 +214,39 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
 //Search through firebase database
 
   $('#search').click(function() {
-    
-    
     var searchMovie = $('.search').val().toLowerCase();
-    $('.search').val("");
-
-    console.log("search Movie", searchMovie);
-    console.log("firebase obj",retrievedMoviesObj);
-
-    var filteredMovies = {};
-    filteredMovies = _.findKey(actorArrayMoviesObj, function(movie) {
-      if ((movie.title.toLowerCase().split(" ").indexOf(searchMovie) !== -1 || movie.title.toLowerCase() === searchMovie) || movie.year === searchMovie) {
-        return true;
-      } else {
-        return false;
-      }
-    });  
-
-    
-    console.log("filter", filteredMovies);
-    console.log("actorArrayMoviesObj.filteredMovies", actorArrayMoviesObj[filteredMovies]);
-    var finalFilteredMovie = {};
-    finalFilteredMovie[filteredMovies] = actorArrayMoviesObj[filteredMovies];
-    $(".main").html(template.movie({Movie:finalFilteredMovie}));
-    
+      var addMovie = $("#addMovie").val();
+      $("#addMovie").val("");
+      movies.getMovie(addMovie);
+    console.log("addMovie", addMovie);
   });
+
+  $('body').on("click", ".omdb-movies", function() {
+    var thisMovie = $(this).text();
+    console.log("thisMovie", thisMovie);
+    addToFirebase.postmovie(thisMovie);
+  });
+
+    // $('.search').val("");
+
+    // console.log("search Movie", searchMovie);
+    // console.log("firebase obj",retrievedMoviesObj);
+
+    // var filteredMovies = {};
+    // filteredMovies = _.findKey(actorArrayMoviesObj, function(movie) {
+    //   if ((movie.title.toLowerCase().split(" ").indexOf(searchMovie) !== -1 || movie.title.toLowerCase() === searchMovie) || movie.year === searchMovie) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });  
+
+    
+    // console.log("filter", filteredMovies);
+    // console.log("actorArrayMoviesObj.filteredMovies", actorArrayMoviesObj[filteredMovies]);
+    // var finalFilteredMovie = {};
+    // finalFilteredMovie[filteredMovies] = actorArrayMoviesObj[filteredMovies];
+    // $(".main").html(template.movie({Movie:finalFilteredMovie}));
 
 // Toggleclass button for watched/unwatched movies
 
