@@ -17,171 +17,117 @@ requirejs.config({
 });
 
 
-// The main function requiring all our anciliary scripts
-requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates"], 
-  function($, _, _firebase, Handlebars, bootstrap, movies, template){
-  var myFirebaseRef = new Firebase("https://refactormovie.firebaseio.com/");
-  var retrievedMoviesObj = {};
-  var movie = {};
-  var newMovie = {};
-  myFirebaseRef.child("movies").on("value", function(snapshot) {
-    retrievedMoviesObj = snapshot.val();
-    actorArrayMoviesObj = snapshot.val();
-    for(var key in actorArrayMoviesObj) {
-      actorArrayMoviesObj[key].actors = actorArrayMoviesObj[key].actors.split(", ");
-    }
-    $(".main").html(template.movie({Movie:actorArrayMoviesObj}));
-    var allMovies = $(".movie-sec");
-    for(var i=0; i<allMovies.length; i++) {
-      var thisMovieKey = $(allMovies[i]).attr("key");
-      console.log("thisMovieKey", thisMovieKey);
-      var isWatched = retrievedMoviesObj[thisMovieKey].watched;
-      console.log("isWatched", isWatched);
-      var $thisMovieWatchButton = $(allMovies[i]).find(".watchToggle");
-      console.log("$thisMovieWatchButton", $thisMovieWatchButton);
-    }
 
-          ///styling effects for movie containers ////
-          $('button').on('click',function(){
-            $(this).children('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
-            });
   
-              //// shadow on movie-content ////
-          $('.movie-content').on('mouseover', function(){
-              $(this).addClass('shadow');
+
+
+
+
+
+
+
+requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "templates", "addToFirebase"], 
+  function($, _, _firebase, Handlebars, bootstrap, movies, template, addToFirebase) {
+  var myFirebaseRef = new Firebase("https://refactormovie.firebaseio.com/movies");
+
+        myFirebaseRef.on("value", function(snapshot){
+
+          var allMovies = snapshot.val();
+          var moviesArray = [];
+            for (var i in allMovies) {moviesArray[moviesArray.length] = allMovies[i];}
+          var allMoviesObj = {movies: moviesArray};
+
+
+        require(['hbs!../templates/movie'], function(movieTemplate) {
+        $("#movieContent").html(movieTemplate(allMoviesObj));
+
+
+                  ///styling effects for movie containers ////
+                    $('button').on('click',function(){
+                      $(this).children('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
+                      });
+                        //// shadow on movie-content ////
+                    $('.movie-content').on('mouseover', function(){
+                        $(this).addClass('shadow');
+                      });
+                    $('.movie-content').on('mouseout', function(){
+                      $(this).removeClass('shadow');
+                    });
+                      //// remove hidden to show delete /// 
+                     $('.movie-content').on('mouseover', function(){
+                        $(this).find('.del').removeClass('hidden');
+                        $('.del').addClass('btnPosition');
+
+                      });
+                    $('.movie-content').on('mouseout', function(){
+                      $('.del').addClass('hidden');
+                      $('.del').removeClass('btnPosition');
+                    });
+
+                    $('.watchbtn').on('click', function(){
+                      ('.movie-sec').removeClass();
+                    });
+
+
+
+
+    });
+  });
+
+
+
+                  $('#search').click(function(e) {
+                    e.preventDefault();
+                    var addMovie = $("#addMovie").val();
+                    console.log("Movie:", addMovie);
+                    $("#addMovie").val("");
+                    movies.getMovie(addMovie);
+                  });
+
+                  $('body').on("click", '.omdb-movies', function() {
+                    var thisMovie = $(this).text();
+                    console.log(thisMovie);
+                    addToFirebase.postMovie(thisMovie);
+                  });
+
+
+
+        $("#watched-link").click(function() {
+              var watchedArray = [];
+              var watchedObject = {};
+
+            myFirebaseRef.on("child_added", function(snapshot) {
+              if (snapshot.val().watched === true) {
+                watchedArray.push(snapshot.val());
+                  }
+            watchedObject = {movies: watchedArray};
+                  });
+                
+            require(['hbs!../templates/movie'],
+              function(watchedTemplate) {
+              $("#movieContent").html(watchedTemplate(watchedObject));
             });
-          $('.movie-content').on('mouseout', function(){
-            $(this).removeClass('shadow');
           });
 
+          $("#wishlist-link").click(function() {
+            var wishArray = [];
+            var wishObject = {};
 
-            //// remove hidden to show delete /// 
-           $('.movie-content').on('mouseover', function(){
-              $(this).find('.del').removeClass('hidden');
-              $('.del').addClass('btnPosition');
+            myFirebaseRef.on("child_added", function(snapshot) {
+              if (snapshot.val().watched === false) {
+                console.log(snapshot.val());
+                wishArray.push(snapshot.val());
+                  }
+                wishObject = {movies: wishArray};
+                 });
 
+                require(['hbs!../templates/movie'],
+                  function(wishTemplate) {
+                  $("#movieContent").html(wishTemplate(wishObject));
+                });
             });
-          $('.movie-content').on('mouseout', function(){
-            $('.del').addClass('hidden');
-            $('.del').removeClass('btnPosition');
-          });
 
-          $('.watchbtn').on('click', function(){
-            ('.movie-sec').removeClass();
-          });
-
-  });
-
-
-
-//   var show = function(showMovie) {
-//     movie = showMovie;
-//     console.log("movies", showMovie);
-
-//     var newMovieArray = [movie];
-        
-
-     
-//     require(['hbs!../templates/modal'],
-//       function(modal) {
-//         console.log("newMovieArray",newMovieArray);
-//         console.log("newMovieArray",newMovieArray.Search);
-//        var modalBody = $("#modal-body").html(modal({newMovieArray:newMovieArray}));
-// console.log(modalBody);
-//       });
-
-//        $('#addMoviebtn').on('click', function(){
-//         console.log('click');
-//          return modalBody; 
-//         });
-
-//   };
-
-
-
-//Add Movie Button    
-
-  $('#addMoviebtn').click(function() {
-    console.log("click");
-    var addMovie = $("#addMovie").val();
-   // console.log("addMovie", addMovie);
-    $("#addMovie").val("");
-    movies.getMovie(addMovie, show);
-  });
-
-  // Delete Movie Button (From Firebase)
-
-  $(document).on("click", ".del", function() {
-    var movieKey = $(this).parents(".movie-sec").attr("key");
-    myFirebaseRef.child("movies").child(movieKey).set(null);
-  });
-
-  // Remove Movie Button (Not Firebase)
-
-  $(document).on("click", ".rmv", function() {
-    $(this).parent().remove();
-    console.log("confirmed remove button working");
-  });
-
-//Radio bar for rating the movies
-
-  $("#range").on( "change", ".rating", function(e) {
-    var movieKey = $(this).parents(".movie-sec").attr("key");
-    var movieWithNewRating = retrievedMoviesObj[movieKey];
-    movieWithNewRating.rating = $(this).val();
-    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewRating);
-  });
-    
-  $('#search').click(function() {
-    
-    
-    var searchMovie = $('#searchText').val();
-    $('#searchText').val("");
-
-    console.log("search Movie", searchMovie);
-    console.log("firebase obj",retrievedMoviesObj);
-
-    var filteredMovies = {};
-    filteredMovies = _.findKey(actorArrayMoviesObj, function(movie) {
-      if (movie.title === searchMovie || movie.year === searchMovie) {
-        return true;
-      } else {
-        return false;
-      }
-    });  
-
-    
-    console.log("filter", filteredMovies);
-    console.log("actorArrayMoviesObj.filteredMovies", actorArrayMoviesObj[filteredMovies]);
-    var finalFilteredMovie = {};
-    finalFilteredMovie[filteredMovies] = actorArrayMoviesObj[filteredMovies];
-    $(".main").html(template.movie({Movie:finalFilteredMovie}));
-    
-  });
-
-// Toggleclass button for watched/unwatched movies
-  $(document).on("click", ".watchToggle", function(e) {
-    e.preventDefault();
-    var movieKey = $(this).parents(".movie-sec").attr("key");
-    console.log("movieKey",movieKey);
-    var movieWithNewWatched = retrievedMoviesObj[movieKey];
-
-    console.log("movieWithNewWatched",movieWithNewWatched);
-
-    if(movieWithNewWatched.watched) {
-      movieWithNewWatched.watched = false;
-    } else {
-      movieWithNewWatched.watched = true;
-    }
-    myFirebaseRef.child("movies").child(movieKey).set(movieWithNewWatched);
-  }); 
-    
-     
 });
-
-
-
-
 
 
 

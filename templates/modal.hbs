@@ -1,12 +1,13 @@
   <!-- Add movie modal -->
 
  {{#each this}}
-<section class="movie-sec col-md-3 col-sm-3 col-xs-3" key="{{@key}}" >
+<section class="movie-sec col-md-3 col-sm-3 col-xs-3" key="{{@key}}">
   <div class="movie-content col-md-12 col-sm-12 col-xs-12 ">
       <div class="row posterRow">
           <div class="posterImg col-md-12 col-sm-12 col-xs-12">
             {{#if Poster}}
-            <img src="../images/no-image-found.jpg"  alt="{{Title}} Poster" width="248" height="320">
+            <div>{{Title}}</div>
+            {{!-- <img src="../images/no-image-found.jpg"  alt="{{Title}} Poster" width="248" height="320"> --}}
             {{else}}
             <img src="../images/no-image-found.jpg" alt="{{Title}} Poster" width="248" height="320">
             {{/if}}
@@ -36,20 +37,16 @@
             </div>
 
             <div class="watchButton col-md-4 col-sm-4 col-xs-4 pull-right">
-              <button class="btn btn-sm btn-success watchBtn">Watched</button>
+              <button class="btn btn-sm btn-success watchBtn omdb-movies">Add</button>
             </div>
           </div>
 
-    {{!-- <div class="col-sm-9">
-      <p>{{plot}}</p>
-      <h4>Leading Actors</h4>
-      <ul>
-        {{#each actors}}
-        <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    </div> --}}
+
          
-</div> <!-- movie content div-->
+    </div> <!-- movie content div-->
+  </div>
 </section>  
 {{/each}}
+
+
+

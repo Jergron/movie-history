@@ -127,6 +127,10 @@ h2 {
   font-size: 16px;
   background-color: transparent; }
 
+.glyphicon-trash:hover {
+  color: crimson;
+  font-size: 24px; }
+
 .shadow {
   -webkit-box-shadow: 3px 4px 10px 2px #70706e;
   -moz-box-shadow: 3px 4px 10px 2px #70706e;

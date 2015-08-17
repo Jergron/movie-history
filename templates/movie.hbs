@@ -1,13 +1,15 @@
-{{#each Movie}}
+
+{{#each movies}}
 <div class="movie-sec col-md-3 col-sm-3 col-xs-3" key="{{@key}}" >
   <div class="row">
   <div class="movie-content col-md-12 col-sm-12 col-xs-12 ">
       <div class="row posterRow">
           <div class="posterImg col-md-12 col-sm-12 col-xs-12">
             {{#if poster}}
-            <img src="../images/no-image-found.jpg"  alt="{{title}} Poster" width="248" height="320">
+            <div>{{title}}</div>
+         {{!--    <img src="../images/no-image-found.jpg"  alt="{{title}} Poster" width="248" height="320"> --}}
             {{else}}
-            <img src="../images/no-image-found.jpg" alt="{{title}} Poster">
+            <div><h3>{{title}}</h3></div>
             {{/if}}
           </div> <!-- end posterImg -->
           <div class="delButtonDiv ">
@@ -17,7 +19,7 @@
       </div> <!-- end posterRow -->
 
 
-        <div class="row titleRow hidden">
+        <div class="row titleRow hidden ">
           <div class=" titleContent col-md-12 col-sm-12 col-xs-12">
             <h4>{{title}} ({{year}})</h4>
           </div>
@@ -39,17 +41,17 @@
             </div>
           </div>
 
-    {{!-- <div class="col-sm-9">
-      <p>{{plot}}</p>
-      <h4>Leading Actors</h4>
-      <ul>
-        {{#each actors}}
-        <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    </div> --}}
+
          
 </div> <!-- movie content div-->
-</div>
-</div>  
+</div><!-- row-->
+</div><!-- movie-sec -->
 {{/each}}
+
+{{!--   <div>{{title}}</div>
+  <div>{{year}}</div>
+  <div>{{rated}}</div>
+  <div>Rating:{{rating}}</div>
+  <div>Starring:{{actors}}</div>
+</div>
+{{/each}} --}}
