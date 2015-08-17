@@ -41,4 +41,12 @@ div {
 .input-group {
   margin-top: 40px !important; }
 
+h4.omdb-movies {
+  text-decoration: underline;
+  cursor: pointer; }
+
+h4.omdb-movies:hover {
+  font-size: 2em;
+  color: blue; }
+
 /*# sourceMappingURL=main.css.map */

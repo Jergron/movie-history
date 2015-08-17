@@ -1,5 +1,13 @@
-{{#each Movie}}
-<section class="movie-sec" key="{{@key}}">
+{{#each movies}}
+<div>
+  <div>{{title}}</div>
+  <div>{{year}}</div>
+  <div>{{rated}}</div>
+  <div>Rating:{{rating}}</div>
+  <div>Starring:{{actors}}</div>
+</div>
+{{/each}}
+{{!-- <section class="movie-sec" key="{{}}">
   <div class="row">
     <div class="col-xs-12">
       <h2>{{title}} ({{year}})</h2>
@@ -28,5 +36,4 @@
   <button class="btn btn-danger watchToggle">Unwatched</button>
   <button class="rmv btn btn-default">Hide</button>
   <button class="del btn btn-danger">Delete</button>
-</section>  
-{{/each}}
+</section>  --}} 
