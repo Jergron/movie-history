@@ -1,4 +1,4 @@
-// Pull in all the various javascript libraries
+  // Pull in all the various javascript libraries
 requirejs.config({
   baseUrl: './javascripts',
   paths: {
@@ -24,60 +24,100 @@ requirejs(["jquery", "lodash", "firebase", "hbs", "bootstrap", "getMovies", "tem
   var retrievedMoviesObj = {};
   var movie = {};
   var newMovie = {};
+  var _baseFirebaseObject;
+
+
   myFirebaseRef.child("movies").on("value", function(snapshot) {
-    console.log($.extend({}, _.sortBy(snapshot.val(), "title")));
-    console.log(snapshot.val());
+    // console.log($.extend({}, _.sortBy(snapshot.val(), "title")));
+    // console.log(snapshot.val());
+
+    _baseFirebaseObject = snapshot.val();
+
     retrievedMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
+    
+
     actorArrayMoviesObj = $.extend({}, _.sortBy(snapshot.val(), "title"));
-    for(var key in actorArrayMoviesObj) {
-      actorArrayMoviesObj[key].actors = actorArrayMoviesObj[key].actors.split(", ");
-    }
-    $(".main").html(template.movie({Movie:actorArrayMoviesObj}));
-    var allMovies = $(".movie-sec");
-    for(var i=0; i<allMovies.length; i++) {
-      var thisMovieKey = $(allMovies[i]).attr("key");
-      console.log("thisMovieKey", thisMovieKey);
-      var isWatched = retrievedMoviesObj[thisMovieKey].watched;
-      console.log("isWatched", isWatched);
-      var $thisMovieWatchButton = $(allMovies[i]).find(".watchToggle");
-      console.log("$thisMovieWatchButton", $thisMovieWatchButton);
-      if(isWatched) {
-        $thisMovieWatchButton.html("Watched");
-        $thisMovieWatchButton.removeClass("btn-danger");
-        $thisMovieWatchButton.addClass("btn-success");
-      } else {
-        $thisMovieWatchButton.html("Unwatched");
-        $thisMovieWatchButton.removeClass("btn-success");
-        $thisMovieWatchButton.addClass("btn-danger");
+    console.log("actorArrayMoviesObj", actorArrayMoviesObj);
+
+    // Convert Firebase's object of objects into an array of objects
+   
+      for (var key in _baseFirebaseObject) {
+        var movieWithId = _baseFirebaseObject[key];
+        var movieKeys =  movieWithId.key;
+        movieWithId.key = key;
+        retrievedMoviesObj[retrievedMoviesObj.length] = movieWithId;
+        console.log("_baseFirebaseObject[key]", _baseFirebaseObject[key]);
+        //  console.log("movieWithId.key", movieWithId.key);
+      
       }
-    }
-///styling effects for movie containers ////
-$('.ratingRow').on('click',function(){
-  $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
-  });
+
+
+     
+        // Delete Movie Button (From Firebase)
+      $(document).on("click", ".del", _baseFirebaseObject, function() {
+        var movieKey = $(this).parents(".movie-sec").attr("key");
+            myFirebaseRef.child("movies").child(movieKey).set(null);
+              console.log("movieKey", movieKey);
+      
+      });
+
+    // for(var key in actorArrayMoviesObj) {
+    //   actorArrayMoviesObj[key].actors = actorArrayMoviesObj[key].actors.split(", ");
+    // }
+    $(".main").html(template.movie({Movie:_baseFirebaseObject}));
+
+    var allMovies = $(".movie-sec");
+
+    // for(var i=0; i<allMovies.length; i++) {
+    //   var thisMovieKey = $(allMovies[i]).attr("key");
+    //   console.log("thisMovieKey", thisMovieKey);
+
+    //   var isWatched = retrievedMoviesObj[thisMovieKey].watched;
+    //   console.log("isWatched", isWatched);
+      
+    //   var $thisMovieWatchButton = $(allMovies[i]).find(".watchToggle");
+    //   console.log("$thisMovieWatchButton", $thisMovieWatchButton);
+    //   // if(isWatched) {
+    //   //   $thisMovieWatchButton.html("Watched");
+    //   //   $thisMovieWatchButton.removeClass("btn-danger");
+    //   //   $thisMovieWatchButton.addClass("btn-success");
+    //   // } else {
+    //   //   $thisMovieWatchButton.html("Unwatched");
+    //   //   $thisMovieWatchButton.removeClass("btn-success");
+    //   //   $thisMovieWatchButton.addClass("btn-danger");
+    //   // }
+    // }
+
+
+  ///styling effects for movie containers ////
+  $('.ratingRow').on('click',function(){
+    $(this).find('span').toggleClass('glyphicon-star-empty').toggleClass(' glyphicon-star');
+    });
+    
+                //// shadow on movie-content ////
+            $('.movie-content').on('mouseover', function(){
+                $(this).addClass('shadow');
+              });
+            $('.movie-content').on('mouseout', function(){
+              $(this).removeClass('shadow');
+            });
   
-              //// shadow on movie-content ////
-          $('.movie-content').on('mouseover', function(){
-              $(this).addClass('shadow');
+  
+              //// remove hidden to show delete /// 
+             $('.movie-sec').on('mouseover', function(){
+                $('.del').removeClass('hidden');
+                $('.del').addClass('btnPosition');
+  
+              });
+            $('.movie-sec').on('mouseout', function(){
+              $('.del').addClass('hidden');
+              $('.del').removeClass('btnPosition');
             });
-          $('.movie-content').on('mouseout', function(){
-            $(this).removeClass('shadow');
-          });
+      
 
-
-            //// remove hidden to show delete /// 
-           $('.movie-sec').on('mouseover', function(){
-              $('.del').removeClass('hidden');
-              $('.del').addClass('btnPosition');
-
-            });
-          $('.movie-sec').on('mouseout', function(){
-            $('.del').addClass('hidden');
-            $('.del').removeClass('btnPosition');
-          });
-
-  });
-
+  
+    });
+  
 
 
   var show = function(showMovie) {
@@ -113,19 +153,13 @@ $('.ratingRow').on('click',function(){
     movies.getMovie(addMovie, show);
   });
 
-  // Delete Movie Button (From Firebase)
-
-  $(document).on("click", ".del", function() {
-    var movieKey = $(this).parents(".movie-sec").attr("key");
-    myFirebaseRef.child("movies").child(movieKey).set(null);
-  });
 
   // Remove Movie Button (Not Firebase)
 
-  $(document).on("click", ".rmv", function() {
-    $(this).parent().remove();
-    console.log("confirmed remove button working");
-  });
+  // $(document).on("click", ".rmv", function() {
+  //   $(this).parent().remove();
+  //   console.log("confirmed remove button working");
+  // });
 
 //Radio bar for rating the movies
 

@@ -1,9 +1,12 @@
 body {
   font: 100% "Lato", sans-serif;
-  color: #333; }
+  color: #333;
+  background: #5d0806 url("../images/background.jpg") no-repeat center center fixed;
+  background-size: cover; }
 
 .navbar {
-  font-size: 16px; }
+  font-size: 16px;
+  background-color: #313131; }
 
 .modal-header {
   background-color: #ddd; }
@@ -30,7 +33,8 @@ h2 {
   margin-top: 50px; }
 
 .main-container {
-  height: 500px; }
+  height: 500px;
+  margin-top: 50px; }
 
 #rowEq {
   height: 370px; }
@@ -49,15 +53,25 @@ h2 {
   background-color: #eee; }
 
 .posterRow {
-  height: 255px; }
+  height: 320px;
+  width: 248px;
+  position: relative; }
+
+.posterImg {
+  height: 100%;
+  width: 100%;
+  padding: 0; }
 
 .titleRow {
   height: 65px;
+  width: 100%;
   border-top: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC; }
+  border-bottom: 1px solid #DCDCDC;
+  position: absolute; }
 
 .titleContent {
-  height: 100%; }
+  height: 100%;
+  background-color: rgba(103, 103, 103, 0.5); }
 
 .ratingRow {
   height: 40px;
@@ -78,17 +92,20 @@ h2 {
 .watchButton {
   padding-left: 5px; }
 
-.btnPosition {
+.delButtonDiv {
   position: absolute;
-  z-index: 1; }
+  float: right;
+  width: 100%; }
 
 .glyphicon-trash {
-  color: crimson; }
+  color: crimson;
+  font-size: 16px;
+  background-color: transparent; }
 
 .shadow {
-  -webkit-box-shadow: 4px 6px 5px 0px rgba(220, 220, 220, 0.77);
-  -moz-box-shadow: 4px 6px 5px 0px rgba(220, 220, 220, 0.77);
-  box-shadow: 4px 6px 5px 0px rgba(220, 220, 220, 0.77); }
+  -webkit-box-shadow: 3px 4px 10px 2px #70706e;
+  -moz-box-shadow: 3px 4px 10px 2px #70706e;
+  box-shadow: 3px 4px 10px 2px #70706e; }
 
 img {
   width: 100%;
